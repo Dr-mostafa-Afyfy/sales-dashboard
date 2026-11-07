@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>لوحة الأداء التجاري | Sales Intelligence</title>
+<style>
+:root{--bg:#f4f6fb;--card:#fff;--ink:#172033;--muted:#718096;--line:#e8edf5;--navy:#172b4d;--blue:#4169e1;--teal:#13a89e;--gold:#d7a94b;--shadow:0 8px 28px rgba(25,42,70,.06)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Tahoma,Arial,sans-serif;color:var(--ink)}.wrap{max-width:1440px;margin:auto;padding:28px}
+header{background:linear-gradient(120deg,#142846,#263f68);color:#fff;border-radius:20px;padding:26px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px;box-shadow:var(--shadow)}
+h1{font-size:25px;margin:0 0 8px}.sub{color:#d2dced;font-size:13px}.tag{border:1px solid #ffffff45;background:#ffffff14;border-radius:30px;padding:9px 14px;font-size:12px;white-space:nowrap}
+.toolbar{display:flex;flex-wrap:wrap;gap:12px;background:var(--card);padding:16px;border:1px solid var(--line);border-radius:16px;margin:18px 0;box-shadow:var(--shadow)}
+.control{display:flex;flex-direction:column;gap:6px;min-width:145px;flex:1}.control label{font-size:11px;color:var(--muted)}select{height:40px;border:1px solid var(--line);border-radius:9px;background:#fff;padding:0 10px;color:var(--ink);font:inherit;font-size:13px}
+button{border:0;border-radius:9px;padding:0 16px;height:40px;background:var(--navy);color:white;font:inherit;font-size:12px;cursor:pointer}button.secondary{background:#edf2fb;color:#29436a}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow);min-width:0}.kpi-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px}.dot{width:9px;height:9px;border-radius:50%;background:var(--blue)}.value{font-size:27px;font-weight:700;margin:14px 0 5px;direction:ltr;text-align:right}.hint{font-size:11px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:1.3fr 1fr;gap:14px;margin-top:14px}.card h2{font-size:15px;margin:0 0 5px}.desc{font-size:11px;color:var(--muted);margin-bottom:14px}.chart{width:100%;height:250px;display:block}.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--muted)}.legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-left:5px;background:var(--blue)}
+.table-card{margin-top:14px}.table-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;white-space:nowrap;font-size:12px}th{background:#f7f9fc;color:#65738b;font-weight:600}td,th{padding:13px 12px;text-align:right;border-bottom:1px solid var(--line)}tbody tr:hover{background:#fafcff}.num{direction:ltr;text-align:left;font-variant-numeric:tabular-nums}.pill{background:#eef3ff;color:#3658a7;padding:5px 9px;border-radius:20px;font-size:10px}.empty{text-align:center;padding:28px;color:var(--muted)}
+footer{font-size:11px;color:var(--muted);padding:18px 4px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+@media(max-width:850px){.wrap{padding:14px}.kpis{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}header{align-items:flex-start;flex-direction:column}.value{font-size:23px}}
+@media(max-width:480px){.kpis{grid-template-columns:1fr 1fr}.card{padding:14px}.value{font-size:19px}h1{font-size:20px}.toolbar .control{min-width:calc(50% - 8px)}}
+@media print{body{background:#fff}.wrap{max-width:none;padding:0}header{print-color-adjust:exact}.toolbar,button{display:none!important}.card{box-shadow:none;break-inside:avoid}.grid{grid-template-columns:1.3fr 1fr}}
+</style></head>
+<body><main class="wrap">
+<header><div><h1>لوحة الأداء التجاري</h1><div class="sub">تحليل المبيعات والمنتجات والقنوات الجغرافية · يناير – مايو 2026</div></div><div class="tag">بيانات تجريبية · Demo Dataset</div></header>
+<section class="toolbar" aria-label="مرشحات البيانات">
+<div class="control"><label for="month">الفترة</label><select id="month"><option value="">كل الشهور</option></select></div>
+<div class="control"><label for="category">التصنيف</label><select id="category"><option value="">كل التصنيفات</option></select></div>
+<div class="control"><label for="city">المدينة</label><select id="city"><option value="">كل المدن</option></select></div>
+<div class="control"><label for="product">المنتج</label><select id="product"><option value="">كل المنتجات</option></select></div>
+<div style="display:flex;align-items:end;gap:8px"><button class="secondary" id="reset">إعادة ضبط</button><button id="export">تصدير CSV</button><button class="secondary" onclick="window.print()">طباعة / PDF</button></div>
+</section>
+<section class="kpis">
+<div class="card"><div class="kpi-top">إجمالي المبيعات <span class="dot"></span></div><div class="value" id="sales">—</div><div class="hint">جنيه مصري</div></div>
+<div class="card"><div class="kpi-top">عدد عمليات البيع <span class="dot" style="background:var(--teal)"></span></div><div class="value" id="orders">—</div><div class="hint">عملية مسجلة</div></div>
+<div class="card"><div class="kpi-top">إجمالي الوحدات <span class="dot" style="background:var(--gold)"></span></div><div class="value" id="units">—</div><div class="hint">وحدة مباعة</div></div>
+<div class="card"><div class="kpi-top">متوسط قيمة العملية <span class="dot" style="background:#8b65c7"></span></div><div class="value" id="avg">—</div><div class="hint">جنيه مصري لكل عملية</div></div>
+</section>
+<section class="grid">
+<div class="card"><h2>اتجاه المبيعات الشهري</h2><div class="desc">قيمة المبيعات حسب شهر التسجيل</div><svg id="trend" class="chart" viewBox="0 0 650 250" role="img" aria-label="رسم اتجاه المبيعات"></svg></div>
+<div class="card"><h2>المبيعات حسب التصنيف</h2><div class="desc">مساهمة كل فئة في إجمالي المبيعات</div><svg id="categories" class="chart" viewBox="0 0 500 250" role="img" aria-label="رسم توزيع التصنيفات"></svg><div class="legend" id="legend"></div></div>
+</section>
+<section class="card table-card"><div class="table-head"><div><h2>تفاصيل عمليات البيع</h2><div class="desc" style="margin:5px 0 0">السجلات المطابقة للفلاتر المحددة</div></div><span class="pill" id="count">0 سجل</span></div>
+<div class="table-wrap"><table><thead><tr><th>التاريخ</th><th>المنتج</th><th>التصنيف</th><th>المدينة</th><th>الكمية</th><th>سعر الوحدة</th><th>قيمة البيع</th></tr></thead><tbody id="rows"></tbody></table></div></section>
+<footer><span>المصدر: بيانات تجريبية مدمجة داخل الملف · ليست بيانات مبيعات فعلية.</span><span>لوحة مستقلة تعمل محليًا دون اتصال بالإنترنت</span></footer>
+</main>
+<script>
+const data=[
+["2026-01-05","دفتر ملاحظات","قرطاسية",12,45,540,"القاهرة"],["2026-01-08","قلم جاف","قرطاسية",30,12,360,"الجيزة"],["2026-01-12","حافظة ملفات","مستلزمات مكتبية",8,65,520,"الإسكندرية"],["2026-01-18","آلة حاسبة","إلكترونيات",5,220,1100,"القاهرة"],
+["2026-02-03","دفتر ملاحظات","قرطاسية",20,45,900,"الجيزة"],["2026-02-09","قلم جاف","قرطاسية",45,12,540,"القاهرة"],["2026-02-14","مصباح مكتب","إلكترونيات",7,180,1260,"الإسكندرية"],["2026-02-22","حافظة ملفات","مستلزمات مكتبية",14,65,910,"القاهرة"],
+["2026-03-02","آلة حاسبة","إلكترونيات",9,220,1980,"الجيزة"],["2026-03-07","دفتر ملاحظات","قرطاسية",25,45,1125,"القاهرة"],["2026-03-15","قلم جاف","قرطاسية",60,12,720,"الإسكندرية"],["2026-03-25","مصباح مكتب","إلكترونيات",11,180,1980,"القاهرة"],
+["2026-04-04","حافظة ملفات","مستلزمات مكتبية",18,65,1170,"الجيزة"],["2026-04-11","آلة حاسبة","إلكترونيات",6,220,1320,"القاهرة"],["2026-04-19","دفتر ملاحظات","قرطاسية",32,45,1440,"الإسكندرية"],["2026-04-27","قلم جاف","قرطاسية",75,12,900,"القاهرة"],
+["2026-05-03","مصباح مكتب","إلكترونيات",13,180,2340,"الجيزة"],["2026-05-10","حافظة ملفات","مستلزمات مكتبية",22,65,1430,"القاهرة"],["2026-05-18","آلة حاسبة","إلكترونيات",10,220,2200,"الإسكندرية"],["2026-05-26","دفتر ملاحظات","قرطاسية",40,45,1800,"القاهرة"]
+].map(x=>({date:x[0],product:x[1],category:x[2],qty:x[3],price:x[4],sales:x[5],city:x[6]}));
+const $=id=>document.getElementById(id), fmt=n=>new Intl.NumberFormat('en-US',{maximumFractionDigits:0}).format(n), months=["يناير","فبراير","مارس","أبريل","مايو"], colors=["#4169e1","#13a89e","#d7a94b","#8b65c7"];
+function fill(id,values){values.forEach(v=>{let o=document.createElement("option");o.value=v;o.textContent=v;$(id).appendChild(o)})}
+fill("month",months);fill("category",[...new Set(data.map(x=>x.category))]);fill("city",[...new Set(data.map(x=>x.city))]);fill("product",[...new Set(data.map(x=>x.product))]);
+function filtered(){return data.filter(d=>(!$("month").value||months[+d.date.slice(5,7)-1]===$("month").value)&&(!$("category").value||d.category===$("category").value)&&(!$("city").value||d.city===$("city").value)&&(!$("product").value||d.product===$("product").value))}
+function render(){let a=filtered(),total=a.reduce((s,d)=>s+d.sales,0),units=a.reduce((s,d)=>s+d.qty,0);$("sales").textContent=fmt(total);$("orders").textContent=fmt(a.length);$("units").textContent=fmt(units);$("avg").textContent=fmt(a.length?total/a.length:0);$("count").textContent=a.length+" سجل";
+$("rows").innerHTML=a.length?a.map(d=>`<tr><td>${d.date}</td><td>${d.product}</td><td>${d.category}</td><td>${d.city}</td><td class="num">${fmt(d.qty)}</td><td class="num">${fmt(d.price)} ج.م</td><td class="num"><b>${fmt(d.sales)} ج.م</b></td></tr>`).join(""):'<tr><td colspan="7" class="empty">لا توجد سجلات مطابقة للفلاتر</td></tr>';
+drawTrend(a);drawCats(a)}
+function drawTrend(a){let vals=months.map((m,i)=>a.filter(d=>+d.date.slice(5,7)===i+1).reduce((s,d)=>s+d.sales,0)),max=Math.max(...vals,1),svg=$("trend");let s='';[0,1,2,3].forEach(i=>{let y=25+i*58;s+=`<line x1="48" y1="${y}" x2="625" y2="${y}" stroke="#edf1f7"/><text x="40" y="${y+4}" text-anchor="end" font-size="10" fill="#8793a6">${fmt(max*(3-i)/3)}</text>`});let pts=vals.map((v,i)=>[75+i*135,210-v/max*170]);s+=`<polyline points="${pts.map(p=>p.join(',').join(' '))}" fill="none" stroke="#4169e1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;pts.forEach((p,i)=>{s+=`<circle cx="${p[0]}" cy="${p[1]}" r="5" fill="#fff" stroke="#4169e1" stroke-width="3"/><text x="${p[0]}" y="238" text-anchor="middle" font-size="11" fill="#66758c">${months[i]}</text>`});svg.innerHTML=s}
+function drawCats(a){let groups=[...new Set(data.map(d=>d.category))].map(c=>({name:c,val:a.filter(d=>d.category===c).reduce((s,d)=>s+d.sales,0)})).filter(x=>x.val>0),total=groups.reduce((s,x)=>s+x.val,0),x=15,y=25,w=470,h=24;let s='';groups.forEach((g,i)=>{let ww=total?g.val/total*w:0;s+=`<rect x="${x}" y="${y+i*66}" width="${w}" height="${h}" rx="7" fill="#eef2f8"/><rect x="${x}" y="${y+i*66}" width="${ww}" height="${h}" rx="7" fill="${colors[i%4]}"/><text x="${x}" y="${y+42+i*66}" font-size="12" fill="#34445c">${g.name}</text><text x="${x+w}" y="${y+42+i*66}" text-anchor="end" font-size="12" fill="#34445c">${fmt(g.val)} ج.م · ${total?(g.val/total*100).toFixed(1):0}%</text>`});$("categories").innerHTML=s;$("legend").innerHTML=groups.map((g,i)=>`<span><i style="background:${colors[i%4]}"></i>${g.name}</span>`).join("")}
+["month","category","city","product"].forEach(id=>$(id).addEventListener("change",render));$("reset").onclick=()=>{["month","category","city","product"].forEach(id=>$(id).value="");render()};$("export").onclick=()=>{let a=filtered(),head=["date","product","category","quantity","unit_price_egp","sales_egp","city"],lines=[head.join(","),...a.map(d=>[d.date,d.product,d.category,d.qty,d.price,d.sales,d.city].map(v=>'"'+String(v).replaceAll('"','""')+'"').join(","))];let blob=new Blob(["\ufeff"+lines.join("\r\n")],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob),link=document.createElement("a");link.href=url;link.download="sales_filtered_export.csv";link.click();URL.revokeObjectURL(url)};
+render();
+</script></body></html>
